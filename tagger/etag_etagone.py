@@ -3,6 +3,7 @@ from random import choice
 from asyncio import sleep
 from telethon.events import NewMessage
 from config import muveqqeti_isleyen
+from telethon.tl.types import ChannelParticipantsAdmins
 
 emoji = "😀 😃 😄 😁 😆 😅 😂 🤣 😭 😗 😙 😚 😘 🥰 😍 🤩 🥳 🤗 🙃 🙂 ☺️ 😊 😏 😌 😉 🤭 😶 😐 😑 😔 😋 😛 😝 😜 🤪 🤔 🤨 🧐 🙄 😒 😤 😠 🤬 ☹️ 🙁 😕 😟 🥺 😳 😬 🤐 🤫 😰 😨 😧 😦 😮 😯 😲 😱 🤯 😢 😥 😓 😞 😖 😣 😩 😫 🤤 🥱 😴 😪 🌛 🌜 🌚 🌝 🎲 🧩 ♟ 🎯 🎳 🎭💕 💞 💓 💗 💖 ❤️‍🔥 💔 🤎 🤍 🖤 ❤️ 🧡 💛 💚 💙 💜 💘 💝 🐵 🦁 🐯 🐱 🐶 🐺 🐻 🐨 🐼 🐹 🐭 🐰 🦊 🦝 🐮 🐷 🐽 🐗 🦓 🦄 🐴 🐸 🐲 🦎 🐉 🦖 🦕 🐢 🐊 🐍 🐁 🐀 🐇 🐈 🐩 🐕 🦮 🐕‍🦺 🐅 🐆 🐎 🐖 🐄 🐂 🐃 🐏 🐑 🐐 🦌 🦙 🦥 🦘 🐘 🦏 🦛 🦒 🐒 🦍 🦧 🐪 🐫 🐿️ 🦨 🦡 🦔 🦦 🦇 🐓 🐔 🐣 🐤 🐥 🐦 🦉 🦅 🦜 🕊️ 🦢 🦩 🦚 🦃 🦆 🐧 🦈 🐬 🐋 🐳 🐟 🐠 🐡 🦐 🦞 🦀 🦑 🐙 🦪 🦂 🕷️ 🦋 🐞 🐝 🦟 🦗 🐜 🐌 🐚 🕸️ 🐛 🐾 🌞 🤢 🤮 🤧 🤒 🍓 🍒 🍎 🍉 🍑 🍊 🥭 🍍 🍌 🌶 🍇 🥝 🍐 🍏 🍈 🍋 🍄 🥕 🍠 🧅 🌽 🥦 🥒 🥬 🥑 🥯 🥖 🥐 🍞 🥜 🌰 🥔 🧄 🍆 🧇 🥞 🥚 🧀 🥓 🥩 🍗 🍖 🥙 🌯 🌮 🍕 🍟 🥨 🥪 🌭 🍔 🧆 🥘 🍝 🥫 🥣 🥗 🍲 🍛 🍜 🍢 🥟 🍱 🍚 🥡 🍤 🍣 🦞 🦪 🍘 🍡 🥠 🥮 🍧 🍨".split(" ")
 
@@ -14,7 +15,7 @@ async def etag(event):
     return
   admins = []
   e_ad = choice(emoji)
-  async for admin in client.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
+  async for admin in bot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
     admins.append(admin.id)
   if not event.sender_id in admins:
     return await event.respond("**👨🏻‍🔧 Bu əmri sadəcə adminlər işlədə bilər**")  
@@ -23,14 +24,14 @@ async def etag(event):
     muveqqeti_isleyen.append(event.chat_id)
     usrnum = 0
     usrtxt = ""
-    async for usr in client.iter_participants(event.chat_id):
+    async for usr in bot.iter_participants(event.chat_id):
       usrnum += 1
       usrtxt += f"[{e_ad}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
         await event.respond("**🆘 Emojilərlə Dəvət Prosesi sonlandırıldı**")
         return
       if usrnum == 5:
-        await client.send_message(event.chat_id, f"{usrtxt}\n\n{msg}")
+        await bot.send_message(event.chat_id, f"{usrtxt}\n\n{msg}")
         await sleep(2)
         usrnum = 0
         usrtxt = ""
@@ -38,14 +39,14 @@ async def etag(event):
     muveqqeti_isleyen.append(event.chat_id)
     usrnum = 0
     usrtxt = ""
-    async for usr in client.iter_participants(event.chat_id):
+    async for usr in bot.iter_participants(event.chat_id):
       usrnum += 1
       usrtxt += f"[{e_ad}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
         await event.respond("🆘 Emojillərlə Dəvət Prosesi Sonlandırıldı")
         return
       if usrnum == 5:
-        await client.send_message(event.chat_id, usrtxt)
+        await bot.send_message(event.chat_id, usrtxt)
         await sleep(2)
         usrnum = 0
         usrtxt = ""
@@ -58,7 +59,7 @@ async def etagone(event):
     return
   admins = []
   e_ad = choice(emoji)
-  async for admin in client.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
+  async for admin in bot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
     admins.append(admin.id)
   if not event.sender_id in admins:
     return await event.respond("**👨🏻‍🔧 Bu əmri sadəcə adminlər işlədə bilər**")  
@@ -67,14 +68,14 @@ async def etagone(event):
     muveqqeti_isleyen.append(event.chat_id)
     usrnum = 0
     usrtxt = ""
-    async for usr in client.iter_participants(event.chat_id):
+    async for usr in bot.iter_participants(event.chat_id):
       usrnum += 1
       usrtxt += f"[{e_ad}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
         await event.respond("**🆘 Emojilərlə Dəvət Prosesi sonlandırıldı**")
         return
       if usrnum == 1:
-        await client.send_message(event.chat_id, f"{usrtxt}\n\n{msg}")
+        await bot.send_message(event.chat_id, f"{usrtxt}\n\n{msg}")
         await sleep(2)
         usrnum = 0
         usrtxt = ""
@@ -82,14 +83,14 @@ async def etagone(event):
     muveqqeti_isleyen.append(event.chat_id)
     usrnum = 0
     usrtxt = ""
-    async for usr in client.iter_participants(event.chat_id):
+    async for usr in bot.iter_participants(event.chat_id):
       usrnum += 1
       usrtxt += f"[{e_ad}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
         await event.respond("🆘 Emojilərlə Dəvət Prosesi Sonlandırıldı")
         return
       if usrnum == 1:
-        await client.send_message(event.chat_id, usrtxt)
+        await bot.send_message(event.chat_id, usrtxt)
         await sleep(2)
         usrnum = 0
         usrtxt = ""
