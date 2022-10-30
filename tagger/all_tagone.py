@@ -1,7 +1,7 @@
 from bot import bot
 from asyncio import sleep
 from telethon.events import NewMessage
-from config import muveqqeti_isleyen
+from config import muveqqeti_isleyen, taglanan
 from telethon.tl.types import ChannelParticipantsAdmins
 
 
@@ -9,6 +9,7 @@ from telethon.tl.types import ChannelParticipantsAdmins
 @bot.on(NewMessage(pattern="^/all@BORZTagger_bot"))
 async def mentionall(event):
   global muveqqeti_isleyen
+  global taglanan
   if event.is_private:
     return
   say = 0
@@ -23,6 +24,7 @@ async def mentionall(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
@@ -40,6 +42,7 @@ async def mentionall(event):
     usrnum = 0
     usrtxt = "
     async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
@@ -57,6 +60,7 @@ async def mentionall(event):
 @bot.on(NewMessage(pattern="^/tagone ?(.*)"))
 async def tagone(event):
   global muveqqeti_isleyen
+  global taglanan
   if event.is_private:
     return
   say = 0
@@ -72,6 +76,7 @@ async def tagone(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
@@ -88,6 +93,7 @@ async def tagone(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
