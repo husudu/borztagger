@@ -26,7 +26,7 @@ async def mentionall(event):
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
-      if event.chat_id not in anlik_calisan:
+      if event.chat_id not in muveqqeti_isleyen:
         await event.respond(f"**🆘 Dəvət Prosesi sonlandırıldı/n{say} İstifadəçi qrupa çağırıldı**")
         say = 0
         return
@@ -74,7 +74,7 @@ async def tagone(event):
     async for usr in bot.iter_participants(event.chat_id):
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
-      if event.chat_id not in anlik_calisan:
+      if event.chat_id not in muveqqeti_isleyen:
         await event.respond(f"**🆘 Tək-Tək Dəvət Prosesi sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
         say = 0
         return
