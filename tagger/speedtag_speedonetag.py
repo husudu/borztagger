@@ -10,6 +10,7 @@ async def speedtag(event):
   global muveqqeti_isleyen
   if event.is_private:
     return
+  say = 0
   admins = []
   async for admin in bot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
     admins.append(admin.id)
@@ -21,10 +22,12 @@ async def speedtag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
       if event.chat_id not in anlik_calisan:
-        await event.respond("**🆘 Sürətli Dəvət Prosesi sonlandırıldı**")
+        await event.respond(f"**🆘 Sürətli Dəvət Prosesi sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
+        say = 0
         return
       if usrnum == 5:
         await bot.send_message(event.chat_id, f"{usrtxt}\n\n{msg}")
@@ -36,10 +39,12 @@ async def speedtag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
-        await event.respond("🆘 Sürətli Dəvət Prosesi Sonlandırıldı")
+        await event.respond(f"**🆘 Sürətli Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
+        say = 0
         return
       if usrnum == 5:
         await bot.send_message(event.chat_id, usrtxt)
@@ -54,6 +59,7 @@ async def speedtag(event):
   global muveqqeti_isleyen
   if event.is_private:
     return
+  say = 0
   admins = []
   async for admin in bot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
     admins.append(admin.id)
@@ -65,10 +71,12 @@ async def speedtag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
       if event.chat_id not in anlik_calisan:
-        await event.respond("**🆘 Sürətli Dəvət Prosesi sonlandırıldı**")
+        await event.respond(f"**🆘 Sürətli Dəvət Prosesi sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
+        say = 0
         return
       if usrnum == 1:
         await bot.send_message(event.chat_id, f"{usrtxt}\n\n{msg}")
@@ -80,10 +88,12 @@ async def speedtag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
-        await event.respond("🆘 Sürətli Dəvət Prosesi Sonlandırıldı")
+        await event.respond(f"**🆘 Sürətli Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
+        say = 0
         return
       if usrnum == 1:
         await bot.send_message(event.chat_id, usrtxt)
