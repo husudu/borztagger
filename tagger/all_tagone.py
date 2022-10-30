@@ -11,6 +11,7 @@ async def mentionall(event):
   global muveqqeti_isleyen
   if event.is_private:
     return
+  say = 0
   admins = []
   async for admin in bot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
     admins.append(admin.id)
@@ -22,10 +23,12 @@ async def mentionall(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
       if event.chat_id not in anlik_calisan:
-        await event.respond("**🆘 Dəvət Prosesi sonlandırıldı**")
+        await event.respond(f"**🆘 Dəvət Prosesi sonlandırıldı/n{say} İstifadəçi qrupa çağırıldı**")
+        say = 0
         return
       if usrnum == 5:
         await bot.send_message(event.chat_id, f"{usrtxt}\n\n{msg}")
@@ -35,12 +38,14 @@ async def mentionall(event):
   else:
     muveqqeti_isleyen.append(event.chat_id)
     usrnum = 0
-    usrtxt = ""
+    usrtxt = "
     async for usr in bot.iter_participants(event.chat_id):
+      say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
-        await event.respond("🆘 5-5 Dəvət Prosesi Sonlandırıldı")
+        await event.respond(f"🆘 5-5 Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
+        say = 0
         return
       if usrnum == 5:
         await bot.send_message(event.chat_id, usrtxt)
@@ -54,6 +59,7 @@ async def tagone(event):
   global muveqqeti_isleyen
   if event.is_private:
     return
+  say = 0
   admins = []
   async for admin in bot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
     admins.append(admin.id)
@@ -69,7 +75,8 @@ async def tagone(event):
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
       if event.chat_id not in anlik_calisan:
-        await event.respond("**🆘 Tək-Tək Dəvət Prosesi sonlandırıldı**")
+        await event.respond(f"**🆘 Tək-Tək Dəvət Prosesi sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
+        say = 0
         return
       if usrnum == 1:
         await bot.send_message(event.chat_id, f"{usrtxt}\n\n{msg}")
@@ -81,10 +88,12 @@ async def tagone(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
-        await event.respond("🆘 Tək-Tək Dəvət Prosesi Sonlandırıldı")
+        await event.respond(f"🆘 Tək-Tək Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
+        say = 0
         return
       if usrnum == 1:
         await bot.send_message(event.chat_id, usrtxt)
