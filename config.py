@@ -5,6 +5,4 @@ muveqqeti_isleyən = []
 usersayi = 0
 qrupsayi = 0
 taglanan = 0
-qruplar = []
-userler = []
-hammisi = []
+
