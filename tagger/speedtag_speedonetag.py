@@ -25,7 +25,7 @@ async def speedtag(event):
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
-      if event.chat_id not in anlik_calisan:
+      if event.chat_id not in muveqqeti_isleyen:
         await event.respond(f"**🆘 Sürətli Dəvət Prosesi sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
         say = 0
         return
@@ -74,7 +74,7 @@ async def speedtag(event):
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
-      if event.chat_id not in anlik_calisan:
+      if event.chat_id not in muveqqeti_isleyen:
         await event.respond(f"**🆘 Sürətli Dəvət Prosesi sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
         say = 0
         return
