@@ -1,5 +1,5 @@
 from bot import bot
-from config import muveqqeti_isleyen
+from config import muveqqeti_isleyen, taglanan
 from telethon.events import NewMessage
 from telethon.tl.types import ChannelParticipantsAdmins
 
@@ -8,6 +8,7 @@ from telethon.tl.types import ChannelParticipantsAdmins
 @bot.on(NewMessage(pattern="^/speedonetag@BORZTagger_bot"))
 async def speedtag(event):
   global muveqqeti_isleyen
+  global taglanan
   if event.is_private:
     return
   say = 0
@@ -22,6 +23,7 @@ async def speedtag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
@@ -39,6 +41,7 @@ async def speedtag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
@@ -57,6 +60,7 @@ async def speedtag(event):
 @bot.on(NewMessage(pattern="^/speedtag@BORZTagger_bot"))
 async def speedtag(event):
   global muveqqeti_isleyen
+  global taglanan
   if event.is_private:
     return
   say = 0
@@ -71,6 +75,7 @@ async def speedtag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
@@ -88,6 +93,7 @@ async def speedtag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
