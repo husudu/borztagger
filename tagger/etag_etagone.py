@@ -2,7 +2,7 @@ from bot import bot
 from random import choice
 from asyncio import sleep
 from telethon.events import NewMessage
-from config import muveqqeti_isleyen
+from config import muveqqeti_isleyen, taglanan
 from telethon.tl.types import ChannelParticipantsAdmins
 
 emoji = "😀 😃 😄 😁 😆 😅 😂 🤣 😭 😗 😙 😚 😘 🥰 😍 🤩 🥳 🤗 🙃 🙂 ☺️ 😊 😏 😌 😉 🤭 😶 😐 😑 😔 😋 😛 😝 😜 🤪 🤔 🤨 🧐 🙄 😒 😤 😠 🤬 ☹️ 🙁 😕 😟 🥺 😳 😬 🤐 🤫 😰 😨 😧 😦 😮 😯 😲 😱 🤯 😢 😥 😓 😞 😖 😣 😩 😫 🤤 🥱 😴 😪 🌛 🌜 🌚 🌝 🎲 🧩 ♟ 🎯 🎳 🎭💕 💞 💓 💗 💖 ❤️‍🔥 💔 🤎 🤍 🖤 ❤️ 🧡 💛 💚 💙 💜 💘 💝 🐵 🦁 🐯 🐱 🐶 🐺 🐻 🐨 🐼 🐹 🐭 🐰 🦊 🦝 🐮 🐷 🐽 🐗 🦓 🦄 🐴 🐸 🐲 🦎 🐉 🦖 🦕 🐢 🐊 🐍 🐁 🐀 🐇 🐈 🐩 🐕 🦮 🐕‍🦺 🐅 🐆 🐎 🐖 🐄 🐂 🐃 🐏 🐑 🐐 🦌 🦙 🦥 🦘 🐘 🦏 🦛 🦒 🐒 🦍 🦧 🐪 🐫 🐿️ 🦨 🦡 🦔 🦦 🦇 🐓 🐔 🐣 🐤 🐥 🐦 🦉 🦅 🦜 🕊️ 🦢 🦩 🦚 🦃 🦆 🐧 🦈 🐬 🐋 🐳 🐟 🐠 🐡 🦐 🦞 🦀 🦑 🐙 🦪 🦂 🕷️ 🦋 🐞 🐝 🦟 🦗 🐜 🐌 🐚 🕸️ 🐛 🐾 🌞 🤢 🤮 🤧 🤒 🍓 🍒 🍎 🍉 🍑 🍊 🥭 🍍 🍌 🌶 🍇 🥝 🍐 🍏 🍈 🍋 🍄 🥕 🍠 🧅 🌽 🥦 🥒 🥬 🥑 🥯 🥖 🥐 🍞 🥜 🌰 🥔 🧄 🍆 🧇 🥞 🥚 🧀 🥓 🥩 🍗 🍖 🥙 🌯 🌮 🍕 🍟 🥨 🥪 🌭 🍔 🧆 🥘 🍝 🥫 🥣 🥗 🍲 🍛 🍜 🍢 🥟 🍱 🍚 🥡 🍤 🍣 🦞 🦪 🍘 🍡 🥠 🥮 🍧 🍨".split(" ")
@@ -11,6 +11,7 @@ emoji = "😀 😃 😄 😁 😆 😅 😂 🤣 😭 😗 😙 😚 😘 🥰 �
 @bot.on(NewMessage(pattern="^/etag ?(.*)"))
 async def etag(event):
   global muveqqeti_isleyen
+  global taglanan
   if event.is_private:
     return
   admins = []
@@ -26,6 +27,7 @@ async def etag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
       say += 1
       usrnum += 1
       usrtxt += f"[{e_ad}](tg://user?id={usr.id})"
@@ -43,6 +45,7 @@ async def etag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
       say += 1
       usrnum += 1
       usrtxt += f"[{e_ad}](tg://user?id={usr.id})"
@@ -60,6 +63,7 @@ async def etag(event):
 @bot.on(NewMessage(pattern="^/etagone ?(.*)"))
 async def etagone(event):
   global muveqqeti_isleyen
+  global taglanan
   if event.is_private:
     return
   admins = []
@@ -75,6 +79,7 @@ async def etagone(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
       say += 1
       usrnum += 1
       usrtxt += f"[{e_ad}](tg://user?id={usr.id})"
@@ -92,6 +97,7 @@ async def etagone(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
       usrnum += 1
       usrtxt += f"[{e_ad}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
