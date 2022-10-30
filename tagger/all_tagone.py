@@ -5,8 +5,7 @@ from config import muveqqeti_isleyen
 from telethon.tl.types import ChannelParticipantsAdmins
 
 
-@bot.on(NewMessage(pattern="@all ?(.*)"))
-@bot.on(NewMessage(pattern="^/all ?(.*)"))
+@bot.on(NewMessage(pattern="^[@/]all ?(.*)"))
 @bot.on(NewMessage(pattern="^/all@BORZTagger_bot"))
 async def mentionall(event):
   global muveqqeti_isleyen
