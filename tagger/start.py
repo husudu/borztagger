@@ -1,11 +1,9 @@
 from bot import bot
 from telethon import Button
 from telethon.events import NewMessage
-from config import muveqqeti_isleyen, usersayi, qrupsayi
-from qrup import qruplar
-from user import userler
-from hami import hammisi
+from config import muveqqeti_isleyen
 
+photo = "https://telegra.ph/-10-30-1460"
 buttons = ([Button.url('➕ Məni Qrupa əlavə et', 'https://t.me/BORZTagger_bot?startgroup=start')], [Button.url('👨🏻‍🔧 Dəstək', 'https://t.me/BorzSohbet'), Button.url('Rəsmi Kanal📣', 'https://t.me/BORZBots')])
 qrup = "Əlavə Məlumat üçün özəl söhbətdə məni başladın"
 helptext = """💎 BORZ Tagger botunun əmr siyahısı:
@@ -25,7 +23,7 @@ helptext = """💎 BORZ Tagger botunun əmr siyahısı:
 async def start(event):
   text = "Salam mən **💎 BORZ Tagger!**\nMənim Sayəmdə qruplarınızda olan istifadəçiləri maraqlı şəkildə qrupa çağıra bilərsiniz"
   if event.is_private:
-    await bot.send_photo(event.chat.id, photo=photo, text=text, buttons)
+    await bot.send_photo(event.chat.id, photo=photo, caption=text, buttons)
   else:
     await bot.send_message(event.chat.id, qrup,
                     buttons=(
