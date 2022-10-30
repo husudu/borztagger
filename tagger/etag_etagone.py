@@ -14,6 +14,7 @@ async def etag(event):
   if event.is_private:
     return
   admins = []
+  say = 0
   e_ad = choice(emoji)
   async for admin in bot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
     admins.append(admin.id)
@@ -25,10 +26,12 @@ async def etag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      say += 1
       usrnum += 1
       usrtxt += f"[{e_ad}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
-        await event.respond("**🆘 Emojilərlə Dəvət Prosesi sonlandırıldı**")
+        await event.respond(f"**🆘 Emojilərlə Dəvət Prosesi sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
+        say = 0
         return
       if usrnum == 5:
         await bot.send_message(event.chat_id, f"{usrtxt}\n\n{msg}")
@@ -40,10 +43,12 @@ async def etag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      say += 1
       usrnum += 1
       usrtxt += f"[{e_ad}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
-        await event.respond("🆘 Emojillərlə Dəvət Prosesi Sonlandırıldı")
+        await event.respond(f"🆘 Emojillərlə Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
+        say = 0
         return
       if usrnum == 5:
         await bot.send_message(event.chat_id, usrtxt)
@@ -58,6 +63,7 @@ async def etagone(event):
   if event.is_private:
     return
   admins = []
+  say = 0
   e_ad = choice(emoji)
   async for admin in bot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
     admins.append(admin.id)
@@ -69,10 +75,12 @@ async def etagone(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
+      say += 1
       usrnum += 1
       usrtxt += f"[{e_ad}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
-        await event.respond("**🆘 Emojilərlə Dəvət Prosesi sonlandırıldı**")
+        await event.respond(f"**🆘 Emojilərlə Dəvət Prosesi sonlandırıldı\n{say} İstifadəçi Qrupa çağırıldı**")
+        say = 0
         return
       if usrnum == 1:
         await bot.send_message(event.chat_id, f"{usrtxt}\n\n{msg}")
@@ -87,7 +95,8 @@ async def etagone(event):
       usrnum += 1
       usrtxt += f"[{e_ad}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
-        await event.respond("🆘 Emojilərlə Dəvət Prosesi Sonlandırıldı")
+        await event.respond(f"🆘 Emojilərlə Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
+        say = 0
         return
       if usrnum == 1:
         await bot.send_message(event.chat_id, usrtxt)
