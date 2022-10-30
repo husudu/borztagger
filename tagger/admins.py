@@ -1,12 +1,13 @@
 from bot import bot
 from telethon.events import NewMessage
 from telethon.tl.types import ChannelParticipantsAdmins as cp
-from config import muveqqeti_isleyen
+from config import muveqqeti_isleyen, taglanan
 
 @bot.on(NewMessage(pattern="^[@/]admins ?(.*)"))
 @bot.on(NewMessage(pattern="^/admins@BORZTagger_bot"))
 async def mentionall(event):
   global muveqqeti_isleyen
+  global taglanan
   say = 0
   if event.is_private:
     return
@@ -16,6 +17,7 @@ async def mentionall(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id, filter=cp):
+      taglanan += 1
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
@@ -33,6 +35,7 @@ async def mentionall(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id, filter=cp):
+      taglanan += 1
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
