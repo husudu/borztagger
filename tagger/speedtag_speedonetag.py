@@ -4,7 +4,8 @@ from telethon.events import NewMessage
 from telethon.tl.types import ChannelParticipantsAdmins
 
 
-@bot.on(NewMessage(pattern="^/all@BORZTagger_bot"))
+@bot.on(NewMessage(pattern="^/speedonetag ?(.*)"))
+@bot.on(NewMessage(pattern="^/speedonetag@BORZTagger_bot"))
 async def speedtag(event):
   global muveqqeti_isleyen
   if event.is_private:
@@ -47,7 +48,8 @@ async def speedtag(event):
         usrtxt = ""
 
 
-@bot.on(NewMessage(pattern="^/all@BORZTagger_bot"))
+@bot.on(NewMessage(pattern="^/speedtag ?(.*)"))
+@bot.on(NewMessage(pattern="^/speedtag@BORZTagger_bot"))
 async def speedtag(event):
   global muveqqeti_isleyen
   if event.is_private:
