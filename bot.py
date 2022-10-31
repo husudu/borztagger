@@ -145,7 +145,7 @@ async def mentionall(event):
   else:
     muveqqeti_isleyen.append(event.chat_id)
     usrnum = 0
-    usrtxt = "
+    usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
       taglanan += 1
       say += 1
