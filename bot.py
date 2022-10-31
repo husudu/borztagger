@@ -1,4 +1,4 @@
-from config import API_ID, API_HASH, BOT_TOKEN, usersayi, qrupsayi, taglanan, muveqqeti_isleyen, owners
+from config import API_ID, API_HASH, BOT_TOKEN, usersayi, qrupsayi, taglanan, owners
 from telethon import TelegramClient, Button, events
 from telethon.events import NewMessage
 from telethon.tl.types import ChannelParticipantsAdmins as cp
@@ -12,7 +12,8 @@ from data.hami import h
 
 bot = TelegramClient("borztagger", api_id=API_ID, api_hash=API_HASH).start(bot_token=BOT_TOKEN)
 
-photo = "https://telegra.ph/-10-30-1460"
+muveqqeti_isleyen = []
+photo = "data/IMG_20221031_014515_509.jpg"
 buttons = ([Button.url('➕ Məni Qrupa əlavə et', 'https://t.me/BORZTagger_bot?startgroup=start')], [Button.url('👨🏻‍🔧 Dəstək', 'https://t.me/BorzSohbet'), Button.url('Rəsmi Kanal📣', 'https://t.me/BORZBots')])
 qrup = "Əlavə Məlumat üçün özəl söhbətdə məni başladın"
 helptext = """💎 BORZ Tagger botunun əmr siyahısı:
