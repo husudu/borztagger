@@ -16,6 +16,7 @@ muveqqeti_isleyen = []
 photo = "data/IMG_20221031_014515_509.jpg"
 buttons = ([Button.url('➕ Məni Qrupa əlavə et', 'https://t.me/BORZTagger_bot?startgroup=start')], [Button.url('👨🏻‍🔧 Dəstək', 'https://t.me/BorzSohbet'), Button.url('Rəsmi Kanal📣', 'https://t.me/BORZBots')])
 qrup = "Əlavə Məlumat üçün özəl söhbətdə məni başladın"
+tag = "@BORZTagger_bot"
 helptext = """💎 BORZ Tagger botunun əmr siyahısı:
 /all və ya @all - İstifadəçiləri 5-5 qrupa çağırmaq üçün
 /onetag - İstifadəçiləri tək-tək qrupa çağırmaq üçün
@@ -35,7 +36,7 @@ async def start(event):
   else:
     await bot.send_message(event.chat.id, qrup,
                     buttons=(
-		      [Button.url('Botla özəl söhbət', 'https://t.me/BORZTaggerbot?start=start')],
+		      [Button.url('Botla özəl söhbət', 'https://t.me/BORZTagger_bot?start=start')],
                     ),
                     link_preview=False
                    )
@@ -48,7 +49,7 @@ async def help(event):
   else:
     await bot.send_message(event.chat.id, qrup,
                     buttons=(
-		      [Button.url('Botla özəl söhbət', 'https://t.me/BORZTaggerbot?start=start')],
+		      [Button.url('Botla özəl söhbət', 'https://t.me/BORZTagger_bot?start=start')],
                     ),
                     link_preview=False
                    )
@@ -64,14 +65,32 @@ async def stop(event):
 
 
 @bot.on(NewMessage(pattern="^[@/]admins ?(.*)"))
-@bot.on(NewMessage(pattern="^/admins@BORZTagger_bot"))
 async def mentionall(event):
   global muveqqeti_isleyen
   global taglanan
   say = 0
   if event.is_private:
     return
-  if event.pattern_match.group(1):
+  if event.pattern_match.group(1) == tag:
+    muveqqeti_isleyen.append(event.chat_id)
+    usrnum = 0
+    usrtxt = ""
+    async for usr in bot.iter_participants(event.chat_id, filter=cp):
+      taglanan += 1
+      say += 1
+      usrnum += 1
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
+      if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
+        await event.respond(f"**🆘 Adminləri çağırmaq Prosesi Sonlandırıldı\n{say} Adminstrator qrupa çağırıldı**")
+        say = 0
+        return
+      if usrnum == 5:
+        await bot.send_message(event.chat_id, usrtxt)
+        await sleep(2)
+        usrnum = 0
+        usrtxt = ""
+  elif event.pattern_match.group(1):
     msg = event.pattern_match.group(1)
     muveqqeti_isleyen.append(event.chat_id)
     usrnum = 0
@@ -82,6 +101,7 @@ async def mentionall(event):
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
         await event.respond(f"**🆘 Adminləri çağırmaq Prosesi sonlandırıldı\n{say} Adminstrator qrupa çağırıldı**")
         say = 0
         return
@@ -100,6 +120,7 @@ async def mentionall(event):
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
         await event.respond(f"**🆘 Adminləri çağırmaq Prosesi Sonlandırıldı\n{say} Adminstrator qrupa çağırıldı**")
         say = 0
         return
@@ -111,7 +132,6 @@ async def mentionall(event):
 
 
 @bot.on(NewMessage(pattern="^[@/]all ?(.*)"))
-@bot.on(NewMessage(pattern="^/all@BORZTagger_bot"))
 async def mentionall(event):
   global muveqqeti_isleyen
   global taglanan
@@ -123,7 +143,26 @@ async def mentionall(event):
     admins.append(admin.id)
   if not event.sender_id in admins:
     return await event.respond("**👨🏻‍🔧 Bu əmri sadəcə adminlər işlədə bilər**")
-  if event.pattern_match.group(1):
+  if event.pattern_match.group(1) == tag:
+    muveqqeti_isleyen.append(event.chat_id)
+    usrnum = 0
+    usrtxt = ""
+    async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
+      say += 1
+      usrnum += 1
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
+      if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
+        await event.respond(f"🆘 5-5 Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
+        say = 0
+        return
+      if usrnum == 5:
+        await bot.send_message(event.chat_id, usrtxt)
+        await sleep(2)
+        usrnum = 0
+        usrtxt = ""
+  elif event.pattern_match.group(1):
     msg = event.pattern_match.group(1)
     muveqqeti_isleyen.append(event.chat_id)
     usrnum = 0
@@ -134,7 +173,8 @@ async def mentionall(event):
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
-        await event.respond(f"**🆘 Dəvət Prosesi sonlandırıldı/n{say} İstifadəçi qrupa çağırıldı**")
+        say -= 1
+        await event.respond(f"**🆘 5-5 Dəvət Prosesi sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
         say = 0
         return
       if usrnum == 5:
@@ -152,6 +192,7 @@ async def mentionall(event):
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
         await event.respond(f"🆘 5-5 Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
         say = 0
         return
@@ -161,7 +202,7 @@ async def mentionall(event):
         usrnum = 0
         usrtxt = ""
 
-@bot.on(NewMessage(pattern="^/tagone@BORZTagger_bot"))
+
 @bot.on(NewMessage(pattern="^/tagone ?(.*)"))
 async def tagone(event):
   global muveqqeti_isleyen
@@ -174,7 +215,26 @@ async def tagone(event):
     admins.append(admin.id)
   if not event.sender_id in admins:
     return await event.respond("**👨🏻‍🔧 Bu əmri sadəcə adminlər işlədə bilər**")
-  if event.pattern_match.group(1):
+  if event.pattern_match.group(1) == tag:
+    muveqqeti_isleyen.append(event.chat_id)
+    usrnum = 0
+    usrtxt = ""
+    async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
+      say += 1
+      usrnum += 1
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
+      if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
+        await event.respond(f"🆘 Tək-Tək Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
+        say = 0
+        return
+      if usrnum == 1:
+        await bot.send_message(event.chat_id, usrtxt)
+        await sleep(2)
+        usrnum = 0
+        usrtxt = ""
+  elif event.pattern_match.group(1):
     msg = event.pattern_match.group(1)
     msg = event.reply_to_msg_id
     muveqqeti_isleyen.append(event.chat_id)
@@ -185,6 +245,7 @@ async def tagone(event):
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
         await event.respond(f"**🆘 Tək-Tək Dəvət Prosesi sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
         say = 0
         return
@@ -203,6 +264,7 @@ async def tagone(event):
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
       if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
         await event.respond(f"🆘 Tək-Tək Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
         say = 0
         return
@@ -215,8 +277,7 @@ async def tagone(event):
 
 emoji = "😀 😃 😄 😁 😆 😅 😂 🤣 😭 😗 😙 😚 😘 🥰 😍 🤩 🥳 🤗 🙃 🙂 ☺️ 😊 😏 😌 😉 🤭 😶 😐 😑 😔 😋 😛 😝 😜 🤪 🤔 🤨 🧐 🙄 😒 😤 😠 🤬 ☹️ 🙁 😕 😟 🥺 😳 😬 🤐 🤫 😰 😨 😧 😦 😮 😯 😲 😱 🤯 😢 😥 😓 😞 😖 😣 😩 😫 🤤 🥱 😴 😪 🌛 🌜 🌚 🌝 🎲 🧩 ♟ 🎯 🎳 🎭💕 💞 💓 💗 💖 ❤️‍🔥 💔 🤎 🤍 🖤 ❤️ 🧡 💛 💚 💙 💜 💘 💝 🐵 🦁 🐯 🐱 🐶 🐺 🐻 🐨 🐼 🐹 🐭 🐰 🦊 🦝 🐮 🐷 🐽 🐗 🦓 🦄 🐴 🐸 🐲 🦎 🐉 🦖 🦕 🐢 🐊 🐍 🐁 🐀 🐇 🐈 🐩 🐕 🦮 🐕‍🦺 🐅 🐆 🐎 🐖 🐄 🐂 🐃 🐏 🐑 🐐 🦌 🦙 🦥 🦘 🐘 🦏 🦛 🦒 🐒 🦍 🦧 🐪 🐫 🐿️ 🦨 🦡 🦔 🦦 🦇 🐓 🐔 🐣 🐤 🐥 🐦 🦉 🦅 🦜 🕊️ 🦢 🦩 🦚 🦃 🦆 🐧 🦈 🐬 🐋 🐳 🐟 🐠 🐡 🦐 🦞 🦀 🦑 🐙 🦪 🦂 🕷️ 🦋 🐞 🐝 🦟 🦗 🐜 🐌 🐚 🕸️ 🐛 🐾 🌞 🤢 🤮 🤧 🤒 🍓 🍒 🍎 🍉 🍑 🍊 🥭 🍍 🍌 🌶 🍇 🥝 🍐 🍏 🍈 🍋 🍄 🥕 🍠 🧅 🌽 🥦 🥒 🥬 🥑 🥯 🥖 🥐 🍞 🥜 🌰 🥔 🧄 🍆 🧇 🥞 🥚 🧀 🥓 🥩 🍗 🍖 🥙 🌯 🌮 🍕 🍟 🥨 🥪 🌭 🍔 🧆 🥘 🍝 🥫 🥣 🥗 🍲 🍛 🍜 🍢 🥟 🍱 🍚 🥡 🍤 🍣 🦞 🦪 🍘 🍡 🥠 🥮 🍧 🍨".split(" ")
 
-@bot.on(NewMessage(pattern="^/etag@BORZTagger_bot"))
-@bot.on(NewMessage(pattern="^/etag ?(.*)"))
+@bot.on(NewMessage(pattern=f"^/etag ?(.*)|etag{tag}$"))
 async def etag(event):
   global muveqqeti_isleyen
   global taglanan
