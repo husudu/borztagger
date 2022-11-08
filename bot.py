@@ -2,7 +2,7 @@ from config import API_ID, API_HASH, BOT_TOKEN, usersayi, qrupsayi, taglanan, ow
 from telethon import TelegramClient, Button, events
 from telethon.events import NewMessage
 from telethon.tl.types import ChannelParticipantsAdmins as cp
-import telethon
+import telethon, time
 from random import choice
 from asyncio import sleep
 from data.qrup import q
@@ -32,7 +32,7 @@ helptext = """💎 BORZ Tagger botunun əmr siyahısı:
 async def start(event):
   text = "Salam mən **💎 BORZ Tagger!**\nMənim Sayəmdə qruplarınızda olan istifadəçiləri maraqlı şəkildə qrupa çağıra bilərsiniz"
   if event.is_private:
-    await bot.send_photo(event.chat.id, photo=photo, caption=text, buttons)
+    await bot.send_file(event.chat.id, file=photo, caption=text, buttons=buttons)
   else:
     await bot.send_message(event.chat.id, qrup,
                     buttons=(
@@ -79,7 +79,7 @@ async def mentionall(event):
       taglanan += 1
       say += 1
       usrnum += 1
-      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
         say -= 1
         await event.respond(f"**🆘 Adminləri çağırmaq Prosesi Sonlandırıldı\n{say} Adminstrator qrupa çağırıldı**")
@@ -99,7 +99,7 @@ async def mentionall(event):
       taglanan += 1
       say += 1
       usrnum += 1
-      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
         say -= 1
         await event.respond(f"**🆘 Adminləri çağırmaq Prosesi sonlandırıldı\n{say} Adminstrator qrupa çağırıldı**")
@@ -118,7 +118,7 @@ async def mentionall(event):
       taglanan += 1
       say += 1
       usrnum += 1
-      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
         say -= 1
         await event.respond(f"**🆘 Adminləri çağırmaq Prosesi Sonlandırıldı\n{say} Adminstrator qrupa çağırıldı**")
@@ -139,7 +139,7 @@ async def mentionall(event):
     return
   say = 0
   admins = []
-  async for admin in bot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
+  async for admin in bot.iter_participants(event.chat_id, filter=cp):
     admins.append(admin.id)
   if not event.sender_id in admins:
     return await event.respond("**👨🏻‍🔧 Bu əmri sadəcə adminlər işlədə bilər**")
@@ -151,7 +151,7 @@ async def mentionall(event):
       taglanan += 1
       say += 1
       usrnum += 1
-      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
         say -= 1
         await event.respond(f"🆘 5-5 Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
@@ -171,7 +171,7 @@ async def mentionall(event):
       taglanan += 1
       say += 1
       usrnum += 1
-      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
         say -= 1
         await event.respond(f"**🆘 5-5 Dəvət Prosesi sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
@@ -190,7 +190,7 @@ async def mentionall(event):
       taglanan += 1
       say += 1
       usrnum += 1
-      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
         say -= 1
         await event.respond(f"🆘 5-5 Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
@@ -211,7 +211,7 @@ async def tagone(event):
     return
   say = 0
   admins = []
-  async for admin in bot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
+  async for admin in bot.iter_participants(event.chat_id, filter=cp):
     admins.append(admin.id)
   if not event.sender_id in admins:
     return await event.respond("**👨🏻‍🔧 Bu əmri sadəcə adminlər işlədə bilər**")
@@ -223,7 +223,7 @@ async def tagone(event):
       taglanan += 1
       say += 1
       usrnum += 1
-      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
         say -= 1
         await event.respond(f"🆘 Tək-Tək Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
@@ -243,7 +243,7 @@ async def tagone(event):
     async for usr in bot.iter_participants(event.chat_id):
       taglanan += 1
       usrnum += 1
-      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
         say -= 1
         await event.respond(f"**🆘 Tək-Tək Dəvət Prosesi sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
@@ -262,7 +262,7 @@ async def tagone(event):
       taglanan += 1
       say += 1
       usrnum += 1
-      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
         say -= 1
         await event.respond(f"🆘 Tək-Tək Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
@@ -285,12 +285,30 @@ async def etag(event):
     return
   admins = []
   say = 0
-  e_ad = choice(emoji)
-  async for admin in bot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
+  async for admin in bot.iter_participants(event.chat_id, filter=cp):
     admins.append(admin.id)
   if not event.sender_id in admins:
     return await event.respond("**👨🏻‍🔧 Bu əmri sadəcə adminlər işlədə bilər**")  
-  if event.pattern_match.group(1):
+  if event.pattern_match.group(1) == tag:
+    muveqqeti_isleyen.append(event.chat_id)
+    usrnum = 0
+    usrtxt = ""
+    async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
+      say += 1
+      usrnum += 1
+      usrtxt += f"[{choice(emoji)}](tg://user?id={usr.id}), "
+      if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
+        await event.respond(f"🆘 Emojillərlə Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
+        say = 0
+        return
+      if usrnum == 5:
+        await bot.send_message(event.chat_id, usrtxt)
+        await sleep(2)
+        usrnum = 0
+        usrtxt = ""
+  elif event.pattern_match.group(1):
     msg = event.pattern_match.group(1)
     muveqqeti_isleyen.append(event.chat_id)
     usrnum = 0
@@ -299,8 +317,9 @@ async def etag(event):
       taglanan += 1
       say += 1
       usrnum += 1
-      usrtxt += f"[{e_ad}](tg://user?id={usr.id})"
+      usrtxt += f"[{choice(emoji)}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
         await event.respond(f"**🆘 Emojilərlə Dəvət Prosesi sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
         say = 0
         return
@@ -317,8 +336,9 @@ async def etag(event):
       taglanan += 1
       say += 1
       usrnum += 1
-      usrtxt += f"[{e_ad}](tg://user?id={usr.id})"
+      usrtxt += f"[{choice(emoji)}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
         await event.respond(f"🆘 Emojillərlə Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
         say = 0
         return
@@ -328,7 +348,6 @@ async def etag(event):
         usrnum = 0
         usrtxt = ""
 
-@bot.on(NewMessage(pattern="^/etagone@BORZTagger_bot"))
 @bot.on(NewMessage(pattern="^/etagone ?(.*)"))
 async def etagone(event):
   global muveqqeti_isleyen
@@ -338,11 +357,29 @@ async def etagone(event):
   admins = []
   say = 0
   e_ad = choice(emoji)
-  async for admin in bot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
+  async for admin in bot.iter_participants(event.chat_id, filter=cp):
     admins.append(admin.id)
   if not event.sender_id in admins:
     return await event.respond("**👨🏻‍🔧 Bu əmri sadəcə adminlər işlədə bilər**")  
-  if event.pattern_match.group(1):
+  if event.pattern_match.group(1) == tag:
+    muveqqeti_isleyen.append(event.chat_id)
+    usrnum = 0
+    usrtxt = ""
+    async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
+      usrnum += 1
+      usrtxt += f"[{choice(emoji)}](tg://user?id={usr.id}), "
+      if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
+        await event.respond(f"🆘 Emojilərlə Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
+        say = 0
+        return
+      if usrnum == 1:
+        await bot.send_message(event.chat_id, usrtxt)
+        await sleep(2)
+        usrnum = 0
+        usrtxt = ""
+  elif event.pattern_match.group(1):
     msg = event.pattern_match.group(1)
     muveqqeti_isleyen.append(event.chat_id)
     usrnum = 0
@@ -351,8 +388,9 @@ async def etagone(event):
       taglanan += 1
       say += 1
       usrnum += 1
-      usrtxt += f"[{e_ad}](tg://user?id={usr.id})"
+      usrtxt += f"[{choice(emoji)}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
         await event.respond(f"**🆘 Emojilərlə Dəvət Prosesi sonlandırıldı\n{say} İstifadəçi Qrupa çağırıldı**")
         say = 0
         return
@@ -368,8 +406,9 @@ async def etagone(event):
     async for usr in bot.iter_participants(event.chat_id):
       taglanan += 1
       usrnum += 1
-      usrtxt += f"[{e_ad}](tg://user?id={usr.id})"
+      usrtxt += f"[{choice(emoji)}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
         await event.respond(f"🆘 Emojilərlə Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
         say = 0
         return
@@ -381,7 +420,6 @@ async def etagone(event):
 
 
 @bot.on(NewMessage(pattern="^/speedonetag ?(.*)"))
-@bot.on(NewMessage(pattern="^/speedonetag@BORZTagger_bot"))
 async def speedtag(event):
   global muveqqeti_isleyen
   global taglanan
@@ -389,11 +427,30 @@ async def speedtag(event):
     return
   say = 0
   admins = []
-  async for admin in bot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
+  async for admin in bot.iter_participants(event.chat_id, filter=cp):
     admins.append(admin.id)
   if not event.sender_id in admins:
     return await event.respond("**👨🏻‍🔧 Bu əmri sadəcə adminlər işlədə bilər**")
-  if event.pattern_match.group(1):
+  if event.pattern_match.group(1) == tag:
+    muveqqeti_isleyen.append(event.chat_id)
+    usrnum = 0
+    usrtxt = ""
+    async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
+      say += 1
+      usrnum += 1
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
+      if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
+        await event.respond(f"**🆘 Sürətli Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
+        say = 0
+        return
+      if usrnum == 5:
+        await bot.send_message(event.chat_id, usrtxt)
+        await sleep(0.5)
+        usrnum = 0
+        usrtxt = ""
+  elif event.pattern_match.group(1):
     msg = event.pattern_match.group(1)
     muveqqeti_isleyen.append(event.chat_id)
     usrnum = 0
@@ -402,8 +459,9 @@ async def speedtag(event):
       taglanan += 1
       say += 1
       usrnum += 1
-      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
         await event.respond(f"**🆘 Sürətli Dəvət Prosesi sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
         say = 0
         return
@@ -420,8 +478,9 @@ async def speedtag(event):
       taglanan += 1
       say += 1
       usrnum += 1
-      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
         await event.respond(f"**🆘 Sürətli Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
         say = 0
         return
@@ -433,7 +492,6 @@ async def speedtag(event):
 
 
 @bot.on(NewMessage(pattern="^/speedtag ?(.*)"))
-@bot.on(NewMessage(pattern="^/speedtag@BORZTagger_bot"))
 async def speedtag(event):
   global muveqqeti_isleyen
   global taglanan
@@ -441,11 +499,30 @@ async def speedtag(event):
     return
   say = 0
   admins = []
-  async for admin in bot.iter_participants(event.chat_id, filter=ChannelParticipantsAdmins):
+  async for admin in bot.iter_participants(event.chat_id, filter=cp):
     admins.append(admin.id)
   if not event.sender_id in admins:
     return await event.respond("**👨🏻‍🔧 Bu əmri sadəcə adminlər işlədə bilər**")
-  if event.pattern_match.group(1):
+  if event.pattern_match.group(1) == tag:
+    muveqqeti_isleyen.append(event.chat_id)
+    usrnum = 0
+    usrtxt = ""
+    async for usr in bot.iter_participants(event.chat_id):
+      taglanan += 1
+      say += 1
+      usrnum += 1
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
+      if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
+        await event.respond(f"**🆘 Sürətli Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
+        say = 0
+        return
+      if usrnum == 1:
+        await bot.send_message(event.chat_id, usrtxt)
+        await sleep(0.5)
+        usrnum = 0
+        usrtxt = ""
+  elif event.pattern_match.group(1):
     msg = event.pattern_match.group(1)
     muveqqeti_isleyen.append(event.chat_id)
     usrnum = 0
@@ -454,8 +531,9 @@ async def speedtag(event):
       taglanan += 1
       say += 1
       usrnum += 1
-      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
         await event.respond(f"**🆘 Sürətli Dəvət Prosesi sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı**")
         say = 0
         return
@@ -472,8 +550,9 @@ async def speedtag(event):
       taglanan += 1
       say += 1
       usrnum += 1
-      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id})"
+      usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
+        say -= 1
         await event.respond(f"**🆘 Sürətli Dəvət Prosesi Sonlandırıldı\n{say} İstifadəçi qrupa çağırıldı")
         say = 0
         return
