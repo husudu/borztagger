@@ -1,4 +1,4 @@
-from config import API_ID, API_HASH, BOT_TOKEN, usersayi, qrupsayi, taglanan, owners
+from config import API_ID, API_HASH, BOT_TOKEN, owners
 from telethon import TelegramClient, Button, events
 from telethon.events import NewMessage
 from telethon.tl.types import ChannelParticipantsAdmins as cp
@@ -567,7 +567,7 @@ async def stats(event):
     user = len(await get_served_users())
     cagirma = await get_queries()
     if event.sender_id in owners:
-        await event.reply(f"💎 BORZ Tagger statistikası:\n👥 Qrup:{qrup}\n👤 İstifadəçi: {user}\n🆙 Ümumi Taglanan istifadəçi: {cagirma}")
+        await event.reply(f"💎 BORZ Tagger statistikası:\n👥 Qrup:{qrup}\n👤 İstifadəçi: {user}\n🆙 Ümumi Çağırılan istifadəçi: {cagirma}")
 
 ad_buttons = [
 
