@@ -565,7 +565,7 @@ async def data(event):
 async def stats(event):
     qrup = len(await get_served_chats())
     user = len(await get_served_users())
-    cagirma = await get_queries()
+    cagirma = await get_cagirma()
     if event.sender_id in owners:
         await event.reply(f"💎 BORZ Tagger statistikası:\n👥 Qrup:{qrup}\n👤 İstifadəçi: {user}\n🆙 Ümumi Çağırılan istifadəçi: {cagirma}")
 
