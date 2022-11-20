@@ -2,7 +2,7 @@ from config import DB_URL
 from motor.motor_asyncio import AsyncIOMotorClient as _mongo_client_
 from typing import Dict, List, Union
 
-_mongo_async_ = _mongo_client_(config.DB_URL)
+_mongo_async_ = _mongo_client_(DB_URL)
 mongodb = _mongo_async_.BorzTagger
 
 chatsdb = mongodb.chats
@@ -67,7 +67,7 @@ async def get_cagirma() -> int:
 async def set_cagirma(mode: int):
     chat_id = 98324
     cagirma = await cagirmadb.find_one({"chat_id": chat_id})
-    if axtaris:
+    if cagirma:
         mode = cagirma["mode"] + mode
     return await cagirmadb.update_one(
         {"chat_id": chat_id}, {"$set": {"mode": mode}}, upsert=True
