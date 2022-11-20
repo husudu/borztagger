@@ -72,7 +72,7 @@ async def mentionall(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id, filter=cp):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
@@ -92,7 +92,7 @@ async def mentionall(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id, filter=cp):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
@@ -111,7 +111,7 @@ async def mentionall(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id, filter=cp):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
@@ -143,7 +143,7 @@ async def mentionall(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
@@ -163,7 +163,7 @@ async def mentionall(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
@@ -182,7 +182,7 @@ async def mentionall(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
@@ -214,7 +214,7 @@ async def tagone(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
@@ -235,7 +235,7 @@ async def tagone(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
@@ -253,7 +253,7 @@ async def tagone(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
@@ -287,7 +287,7 @@ async def etag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{choice(emoji)}](tg://user?id={usr.id}), "
@@ -307,7 +307,7 @@ async def etag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{choice(emoji)}](tg://user?id={usr.id}), "
@@ -326,7 +326,7 @@ async def etag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{choice(emoji)}](tg://user?id={usr.id}), "
@@ -358,7 +358,7 @@ async def etagone(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       usrnum += 1
       usrtxt += f"[{choice(emoji)}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
@@ -377,7 +377,7 @@ async def etagone(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{choice(emoji)}](tg://user?id={usr.id}), "
@@ -396,7 +396,7 @@ async def etagone(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       usrnum += 1
       usrtxt += f"[{choice(emoji)}](tg://user?id={usr.id}), "
       if event.chat_id not in muveqqeti_isleyen:
@@ -427,7 +427,7 @@ async def speedtag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
@@ -447,7 +447,7 @@ async def speedtag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
@@ -466,7 +466,7 @@ async def speedtag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
@@ -498,7 +498,7 @@ async def speedtag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
@@ -518,7 +518,7 @@ async def speedtag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
@@ -537,7 +537,7 @@ async def speedtag(event):
     usrnum = 0
     usrtxt = ""
     async for usr in bot.iter_participants(event.chat_id):
-      set_cagirma(1)
+      await set_cagirma(1)
       say += 1
       usrnum += 1
       usrtxt += f"[{usr.first_name}](tg://user?id={usr.id}), "
@@ -556,9 +556,9 @@ async def speedtag(event):
 @bot.on(NewMessage())
 async def data(event):
   if event.is_private:
-    add_served_user(event.chat.id)
+    await add_served_user(event.chat.id)
   else:
-    add_served_chat(event.chat.id)
+    await add_served_chat(event.chat.id)
 
 
 @bot.on(NewMessage(pattern="^/btstats$"))
@@ -583,8 +583,8 @@ confirm_buttons = [
 
 @bot.on(NewMessage(pattern="^/btreklam"))
 async def start(event: telethon.events.newmessage.NewMessage.Event):
-    chats = len(await get_served_chats())
-    users = len(await get_served_users())
+    chats = await get_served_chats()
+    users = await get_served_users()
     if event.sender_id not in owners:
         return
 
