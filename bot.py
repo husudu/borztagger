@@ -5,12 +5,12 @@ from telethon.tl.types import ChannelParticipantsAdmins as cp
 import telethon, time
 from random import choice
 from asyncio import sleep
-from data.db import add_served_chat, add_served_user, set_cagirma, get_served_chats, get_served_users, get_cagirma
+from db import add_served_chat, add_served_user, set_cagirma, get_served_chats, get_served_users, get_cagirma
 
 bot = TelegramClient("borztagger", api_id=API_ID, api_hash=API_HASH).start(bot_token=BOT_TOKEN)
 
 muveqqeti_isleyen = []
-photo = "data/IMG_20221031_014515_509.jpg"
+photo = "IMG_20221031_014515_509.jpg"
 buttons = ([Button.url('➕ Məni Qrupa əlavə et', 'https://t.me/BORZTagger_bot?startgroup=start')], [Button.url('👨🏻‍🔧 Dəstək', 'https://t.me/BorzSohbet'), Button.url('Rəsmi Kanal📣', 'https://t.me/BORZBots')])
 qrup = "Əlavə Məlumat üçün özəl söhbətdə məni başladın"
 tag = "@BORZTagger_bot"
@@ -601,44 +601,111 @@ async def start(event: telethon.events.newmessage.NewMessage.Event):
 
 
     if response.data.decode() == 'pm':
-        ids = users
-    elif response.data.decode() == 'group':
-        ids = chats
-    else:
-        ids = chats + users
-
-    await event.reply("Reklam mesajını göndər")
-    async with event.client.conversation(event.chat_id) as conv:
-        try:
-            response = await conv.wait_event(events.NewMessage(chats=[event.chat_id]), timeout=180)
-        except:
-            await event.reply("Yenidən başlamaq üçün {} kliklə".format(command))
-            return
-    message_to_send = response.message
-    await bot.send_message(entity=event.chat_id,  message=message_to_send)
-
-    await event.respond("Yuxarıdakı mesajın göndərilməsini təsdiq edirsən?",
-                        buttons=confirm_buttons)
-    async with event.client.conversation(event.chat_id) as conv:
-        try:
-            response = await conv.wait_event(events.CallbackQuery(chats=[event.chat_id]), timeout=180)
-            await response.delete()
-        except:
-            await event.reply("Yenidən başlamaq üçün /btreklam kliklə")
-            return
-
-    if response.data.decode() == 'yes':
-        count = 0
-        for i in ids:
+        await event.reply("Reklam mesajını göndər")
+        async with event.client.conversation(event.chat_id) as conv:
             try:
-                await bot.send_message(entity=int(a["user_id"]), message=message_to_send)
-                time.sleep(2)
-                count += 1
-            except Exception as e:
-                pass
-        await event.reply("Reklam bitdi\n\n{} id'dən {} id'yə reklam göndərildi".format(len(ids), count))
+                response = await conv.wait_event(events.NewMessage(chats=[event.chat_id]), timeout=180)
+            except:
+                await event.reply("Yenidən başlamaq üçün {} kliklə".format(command))
+                return
+        message_to_send = response.message
+        await bot.send_message(entity=event.chat_id,  message=message_to_send)
+
+        await event.respond("Yuxarıdakı mesajın göndərilməsini təsdiq edirsən?",
+                            buttons=confirm_buttons)
+        async with event.client.conversation(event.chat_id) as conv:
+            try:
+                response = await conv.wait_event(events.CallbackQuery(chats=[event.chat_id]), timeout=180)
+                await response.delete()
+            except:
+                await event.reply("Yenidən başlamaq üçün /btreklam kliklə")
+                return
+
+        if response.data.decode() == 'yes':
+            count = 0
+            for i in users:
+                try:
+                    await bot.send_message(entity=int(a["user_id"]), message=message_to_send)
+                    time.sleep(2)
+                    count += 1
+                except Exception as e:
+                    pass
+            await event.reply("Reklam bitdi\n\n{} id'dən {} id'yə reklam göndərildi".format(len(ids), count))
+        else:
+            await event.reply("Yenidən başlamaq üçün /btreklam kliklə")
+    elif response.data.decode() == 'group':
+        await event.reply("Reklam mesajını göndər")
+        async with event.client.conversation(event.chat_id) as conv:
+            try:
+                response = await conv.wait_event(events.NewMessage(chats=[event.chat_id]), timeout=180)
+            except:
+                await event.reply("Yenidən başlamaq üçün {} kliklə".format(command))
+                return
+        message_to_send = response.message
+        await bot.send_message(entity=event.chat_id,  message=message_to_send)
+
+        await event.respond("Yuxarıdakı mesajın göndərilməsini təsdiq edirsən?",
+                            buttons=confirm_buttons)
+        async with event.client.conversation(event.chat_id) as conv:
+            try:
+                response = await conv.wait_event(events.CallbackQuery(chats=[event.chat_id]), timeout=180)
+                await response.delete()
+            except:
+                await event.reply("Yenidən başlamaq üçün /btreklam kliklə")
+                return
+
+        if response.data.decode() == 'yes':
+            count = 0
+            for i in chats:
+                try:
+                    await bot.send_message(entity=int(chat["chat_id"]), message=message_to_send)
+                    time.sleep(2)
+                    count += 1
+                except Exception as e:
+                    pass
+            await event.reply("Reklam bitdi\n\n{} id'dən {} id'yə reklam göndərildi".format(len(ids), count))
+        else:
+            await event.reply("Yenidən başlamaq üçün /btreklam kliklə")
     else:
-        await event.reply("Yenidən başlamaq üçün /btreklam kliklə")
+                await event.reply("Reklam mesajını göndər")
+        async with event.client.conversation(event.chat_id) as conv:
+            try:
+                response = await conv.wait_event(events.NewMessage(chats=[event.chat_id]), timeout=180)
+            except:
+                await event.reply("Yenidən başlamaq üçün {} kliklə".format(command))
+                return
+        message_to_send = response.message
+        await bot.send_message(entity=event.chat_id,  message=message_to_send)
+
+        await event.respond("Yuxarıdakı mesajın göndərilməsini təsdiq edirsən?",
+                            buttons=confirm_buttons)
+        async with event.client.conversation(event.chat_id) as conv:
+            try:
+                response = await conv.wait_event(events.CallbackQuery(chats=[event.chat_id]), timeout=180)
+                await response.delete()
+            except:
+                await event.reply("Yenidən başlamaq üçün /btreklam kliklə")
+                return
+
+        if response.data.decode() == 'yes':
+            count = 0
+            for i in chats:
+                try:
+                    await bot.send_message(entity=int(chat["chat_id"]), message=message_to_send)
+                    time.sleep(2)
+                    count += 1
+                except Exception as e:
+                    pass
+            for i in users:
+                try:
+                    await bot.send_message(entity=int(a["user_id"]), message=message_to_send)
+                    time.sleep(2)
+                    count += 1
+                except Exception as e:
+                    pass
+            await event.reply("Reklam bitdi\n\n{} id'dən {} id'yə reklam göndərildi".format(len(ids), count))
+        else:
+            await event.reply("Yenidən başlamaq üçün /btreklam kliklə")
 
 
 bot.start()
